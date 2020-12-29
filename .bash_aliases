@@ -1,0 +1,6 @@
+alias full-update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
+alias thm-vpn='sudo openvpn --cd $HOME/.openvpn --config thm.ovpn'
+alias ssh2john='/usr/share/john/ssh2john.py'
+alias up='sudo python3 -m http.server 80'
+alias rot13='tr "[a-zA-Z]" "[n-za-mN-ZA-M]"'
+alias vi='nvim'
