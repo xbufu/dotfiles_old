@@ -1,7 +1,8 @@
-syntax on
 set background=dark
 set number
-set tabstop=4
-set shiftwidth=4
+set relativenumber
 set showmatch
-set smarttab
+filetype on
+filetype plugin on
+filetype plugin indent on
+set shiftwidth=4
