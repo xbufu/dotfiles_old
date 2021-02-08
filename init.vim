@@ -2,7 +2,7 @@ set background=dark
 set number
 set relativenumber
 set showmatch
-filetype on
-filetype plugin on
-filetype plugin indent on
+set tabstop=4
+set noexpandtab
 set shiftwidth=4
+set cursorline
