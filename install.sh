@@ -8,10 +8,6 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget git tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate
 sudo updatedb
 
-# Configure git
-git config --global user.email "xbufu@pm.me"
-git config --global user.name "Bufu"
-
 # Set up python2
 
 sudo apt install -y python2
