@@ -7,9 +7,9 @@ git_ssh_check() {
 	if [ ! -f ~/.ssh/id_ed25519 ]; then
 		printf "Please create SSH key first and add it to Github!\n"
 		printf "Commands:\n"
-		printf '\tssh-keygen -t ed25519 -C "your_email@example.com"'
-		printf "\teval \`ssh-agent -s\`"
-		printf "\tssh-add ~/.ssh/id_ed25519"
+		printf '\tssh-keygen -t ed25519 -C "your_email@example.com"\n'
+		printf "\teval \`ssh-agent -s\`\n"
+		printf "\tssh-add ~/.ssh/id_ed25519\n"
 		exit
 	fi
 }
