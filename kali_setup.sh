@@ -110,6 +110,14 @@ kali_fixes() {
 	xset b off
 }
 
+nmap_fix() {
+	sudo rm -f /usr/share/nmap/scripts/clamav-exec.nse
+	wget https://raw.githubusercontent.com/nmap/nmap/master/scripts/clamav-exec.nse -O clamav-exec.nse
+	sudo mv clamav-exec.nse /usr/share/nmap/scripts/clamav-exec.nse
+	wget https://raw.githubusercontent.com/onomastus/pentest-tools/master/fixed-http-shellshock.nse -O http-shellshock.nse
+	sudo mv http-shellshock.nse /usr/share/nmap/scripts/http-shellshock.nse
+}
+
 impacket_fix() {
 	# Set up impacket
 	wget https://github.com/SecureAuthCorp/impacket/releases/download/impacket_0_9_22/impacket-0.9.22.tar.gz
@@ -135,10 +143,15 @@ impacket_fix() {
 }
 
 basic_tools() {
-	sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal
+	sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal htop
 	
 	read -n 1 -p "Set default terminal emulator (ENTER to continue):"
 	sudo update-alternatives --config x-terminal-emulator
+}
+
+get_bash() {
+	sudo apt purge zsh
+	chsh -s /bin/bash
 }
 
 git_setup() {
@@ -282,6 +295,7 @@ go_setup
 # Fixes
 kali_fixes
 impacket_fix
+get_bash
 
 # Tools
 recon_tools
