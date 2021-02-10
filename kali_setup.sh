@@ -16,7 +16,8 @@ git_ssh_check() {
 
 path_fixes() { 
 	# Change owner of opt folder
-	sudo -R chown $USER:$USER /opt
+	usr="$USER"
+	sudo -R chown $usr:$usr /opt
 
 	# Set up path for local binaries
 	printf "\n# Fix for local binaries\nexport PATH=\$PATH:\$HOME/.local/bin" >> ~/home/.bashrc
@@ -24,10 +25,10 @@ path_fixes() {
 
 python_setup() {
 	# Set up Python3
-	sudo apt install python3 python3-dev
+	sudo apt install -y python3 python3-dev python3-venv
 	
 	# Set up pip3
-	sudo apt install python3-pip
+	sudo apt install -y python3-pip
 	pip3 install setuptools
 	pip3 install wheel
 	pip3 install virtualenv
@@ -121,9 +122,9 @@ nmap_fix() {
 impacket_fix() {
 	# Set up impacket
 	wget https://github.com/SecureAuthCorp/impacket/releases/download/impacket_0_9_22/impacket-0.9.22.tar.gz
-	tar xvf -C /opt ~/impacket-0.9.22.tar.gz
+	tar xvf ~/impacket-0.9.22.tar.gz
+	mv impacket-0.9.22 /opt/impacket-0.9.22
 	rm -f impacket-0.9.22.tar.gz
-	sudo apt -y remove impacket
 	pip2 uninstall impacket
 	pip3 uninstall impacket
 	chmod -R 755 /opt/impacket-0.9.22
@@ -138,7 +139,7 @@ impacket_fix() {
 	cd /opt/impacket-0.9.22
 	pip install .
 	pip3 install .
-	sudo apt reinstall python3-impacket impacket-scripts
+	sudo apt reinstall -y python3-impacket impacket-scripts
 	cd ~
 }
 
@@ -150,7 +151,7 @@ basic_tools() {
 }
 
 get_bash() {
-	sudo apt purge zsh
+	sudo apt purge -y zsh
 	chsh -s /bin/bash
 }
 
@@ -167,7 +168,7 @@ git_setup() {
 recon_tools() {
 	# Set up rustscan
 	wget https://github.com/RustScan/RustScan/releases/download/2.0.1/rustscan_2.0.1_amd64.deb -O rustscan_2.0.1_amd64.deb
-	sudo apt install ~/rustscan_2.0.1_amd64.deb
+	sudo apt install -y ~/rustscan_2.0.1_amd64.deb
 	rm -f rustscan_2.0.1_amd64.deb
 	
 	# Install gobuster
@@ -176,15 +177,15 @@ recon_tools() {
 	# Set up feroxbuster
 	wget https://github.com/epi052/feroxbuster/releases/download/v2.0.0/feroxbuster_amd64.deb.zip -O feroxbuster_amd64.deb.zip
 	unzip feroxbuster_amd64.deb.zip
-	sudo apt install ~/feroxbuster_2.0.0_amd64.deb
+	sudo apt install -y ~/feroxbuster_2.0.0_amd64.deb
 	rm -f feroxbuster_2.0.0_amd64.deb
 
 	# Set up AutoRecon
-	sudo apt install seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
+	sudo apt install -y seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
 	pipx install git+https://github.com/Tib3rius/AutoRecon.git
 
 	# Set up enum4linux-ng
-	sudo apt install smbclient python3-ldap3 python3-yaml python3-impacket
+	sudo apt install -y smbclient python3-ldap3 python3-yaml python3-impacket
 	git clone https://github.com/cddmp/enum4linux-ng.git /opt/enum4linux-ng
 	cd /opt/enum4linux-ng
 	pip3 install -r requirements.txt
