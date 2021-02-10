@@ -92,7 +92,7 @@ config_setup() {
 	mkdir ~/.git_update
 	cp ~/dotfiles/git_update.sh ~/.git_update/git_update.sh
 	chmod +x ~/.git_update/git_update.sh
-	printf "\n# Git update script\n0 8 \* \* 7\tbufu\t/home/bufu/.git_update/git_update.sh\n" | sudo tee -a /etc/crontab
+	printf "\n# Git update script\n0 8 \* \* 7\t$USER\t$HOME/.git_update/git_update.sh\n" | sudo tee -a /etc/crontab
 }
 
 git_personal() {
