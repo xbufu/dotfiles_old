@@ -20,7 +20,7 @@ path_fixes() {
 	sudo -R chown $usr:$usr /opt
 
 	# Set up path for local binaries
-	printf "\n# Fix for local binaries\nexport PATH=\$PATH:\$HOME/.local/bin" >> ~/home/.bashrc
+	echo -e "\nFix for local binaries\nexport PATH=\$PATH:\$HOME/.local/bin" >> ~/.bashrc
 }
 
 python_setup() {
@@ -56,8 +56,8 @@ python_setup() {
 java_setup() {
 	# Set up Java
 	sudo apt install -y openjdk-11-jdk openjdk-11-jre openjdk-11-dbg openjdk-11-doc
-	echo "\n\n# Java\nexport JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
-	echo "\nexport PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.bashrc
+	echo -e "\n# Java\nexport JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
+	echo -e "\nexport PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.bashrc
 }
 
 go_setup() {
@@ -65,7 +65,7 @@ go_setup() {
 	wget https://golang.org/dl/go1.15.8.linux-amd64.tar.gz -O go1.15.8.linux-amd64.tar.gz
 	sudo tar -C /usr/local -xzf go1.15.8.linux-amd64.tar.gz
 	rm -f go1.15.8.linux-amd64.tar.gz
-	printf "\n\n# GoLang\nexport PATH=\$PATH:/usr/local/go/bin"
+	echo -e "\n# GoLang\nexport PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
 }
 
 config_setup() {
@@ -144,7 +144,7 @@ impacket_fix() {
 }
 
 basic_tools() {
-	sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal htop
+	sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal htop wordlists
 	
 	read -n 1 -p "Set default terminal emulator (ENTER to continue):"
 	sudo update-alternatives --config x-terminal-emulator
@@ -153,6 +153,8 @@ basic_tools() {
 get_bash() {
 	sudo apt purge -y zsh
 	chsh -s /bin/bash
+	read -n 1 -p "Change your shell in /etc/passwd (ENTER to continue):"
+	sudo vi /etc/passwd
 }
 
 git_setup() {
@@ -194,9 +196,6 @@ recon_tools() {
 
 	# GitTools
 	git clone https://github.com/internetwache/GitTools /opt/GitTools
-
-	# ffuf
-	go get -u github.com/ffuf/ffuf
 }
 
 re_be_tools() {
@@ -276,7 +275,9 @@ privesc_tools() {
 #         START         #
 #########################
 
-cd $HOME
+cd ~
+usr=$USER
+sudo chown -R $usr:$usr /opt
 
 # Perform full update
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
