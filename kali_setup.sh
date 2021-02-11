@@ -220,11 +220,7 @@ re_be_tools() {
 	mv ghidra_9.2.2_PUBLIC /opt/ghidra
 	rm -f ghidra_9.2.2.zip
 	sudo ln -s /opt/ghidra/ghidraRun /usr/bin/ghidra
-	git clone https://github.com/zackelia/ghidra-dark.git
-	cd ghidra-dark
-	python3 install.py
-	cd ~
-	rm -rf ghidra-dark
+	git clone https://github.com/zackelia/ghidra-dark.git /opt/ghidra-dark
 	
 	# Install radare2 and cutter
 	sudo apt install -y radare2 radare2-cutter
@@ -308,3 +304,8 @@ recon_tools
 re_be_tools
 crypto_tools
 privesc_tools
+
+echo -e "\n\n######################################\n\n"
+echo -e "Done! Restart to get working shell and path\n"
+echo -e "Run ghidra once then run \"python3 install.py --path /opt/ghidra\" from /opt/ghidra-dark"
+
