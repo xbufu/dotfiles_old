@@ -276,6 +276,8 @@ privesc_tools() {
 #         START         #
 #########################
 
+cd $HOME
+
 # Perform full update
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 
