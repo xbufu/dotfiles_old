@@ -14,15 +14,6 @@ git_ssh_check() {
 	fi
 }
 
-path_fixes() { 
-	# Change owner of opt folder
-	usr="$USER"
-	sudo -R chown $usr:$usr /opt
-
-	# Set up path for local binaries
-	echo -e "\nFix for local binaries\nexport PATH=\$PATH:\$HOME/.local/bin" >> ~/.bashrc
-}
-
 python_setup() {
 	# Set up Python3
 	sudo apt install -y python3 python3-dev python3-venv
@@ -39,6 +30,9 @@ python_setup() {
 	python3 -m pipx ensurepath
 	read -n 1 -p "Append /home/$USER/.local/bin to secure_path (ENTER to continue):"
 	sudo visudo /etc/sudoers
+	echo -e "\n# pipx" >> ~/.bashrc
+	echo -e "export PATH=\$PATH:\$HOME/.local/bin" >> ~/.bashrc
+	echo -e "eval \"\$(register-python-argcomplete pipx)\"" >> ~/.bashrc
 
 	# Set up Python2
 	sudo apt install -y python2
@@ -109,6 +103,10 @@ kali_fixes() {
 	# Disable terminal beep
 	echo "blacklist pcspkr" | sudo tee /etc/modprobe.d/nobeep.conf
 	xset b off
+
+	# Set root password
+	read -n 1 -p "Set root password (ENTER to continue):"
+	sudo passwd root
 }
 
 nmap_fix() {
@@ -284,7 +282,6 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt aut
 
 # Prerequisites
 git_ssh_check
-path_fixes
 basic_tools
 
 # Configs and repos 
