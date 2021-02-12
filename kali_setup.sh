@@ -214,6 +214,7 @@ re_be_tools() {
 	mv ghidra_9.2.2_PUBLIC /opt/ghidra
 	rm -f ghidra_9.2.2.zip
 	sudo ln -s /opt/ghidra/ghidraRun /usr/bin/ghidra
+	git clone https://github.com/zackelia/ghidra-dark /opt/ghidra-dark
 	
 	# Install radare2 and cutter
 	sudo apt install -y radare2 radare2-cutter
@@ -298,6 +299,11 @@ recon_tools
 re_be_tools
 crypto_tools
 privesc_tools
+
+echo -e "\n\n########################################\n"
+echo -e "Set up finished! Relog for all settings to apply.\n"
+echo -e "To enable dark mode theme for ghidra run it once and close it. Then run the following command:\n"
+echo -e "\t python3 /opt/ghidra-dark/install.py --path /opt/ghidra"
 
 # Clean up
 sudo apt -y autoremove && sudo apt -y autoclean
