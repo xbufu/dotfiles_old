@@ -300,10 +300,10 @@ re_be_tools
 crypto_tools
 privesc_tools
 
+# Clean up
+sudo apt -y autoremove && sudo apt -y autoclean
+
 echo -e "\n\n########################################\n"
 echo -e "Set up finished! Relog for all settings to apply.\n"
 echo -e "To enable dark mode theme for ghidra run it once and close it. Then run the following command:\n"
 echo -e "\t python3 /opt/ghidra-dark/install.py --path /opt/ghidra"
-
-# Clean up
-sudo apt -y autoremove && sudo apt -y autoclean
