@@ -102,7 +102,7 @@ kali_fixes() {
 	
 	# Disable terminal beep
 	echo "blacklist pcspkr" | sudo tee /etc/modprobe.d/nobeep.conf
-	xset b off
+	echo -n "\n\n# Turn off beep\nxset b off" | sudo tee -a /etc/profile
 }
 
 nmap_fix() {
