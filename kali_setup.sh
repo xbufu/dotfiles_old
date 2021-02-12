@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Fix PATH for pip
-PATH=$PATH:$HOME/.local/bin
+# Fix PATH for pip and go
+PATH=$PATH:$HOME/.local/bin:/usr/local/go/bin
 
 git_ssh_check() {
 	if [ ! -f ~/.ssh/id_ed25519 ]; then
@@ -87,7 +87,7 @@ config_setup() {
 	mkdir ~/.git_update
 	cp ~/dotfiles/git_update.sh ~/.git_update/git_update.sh
 	chmod +x ~/.git_update/git_update.sh
-	printf "\n# Git update script\n0 8 \* \* 7\t$USER\t$HOME/.git_update/git_update.sh\n" | sudo tee -a /etc/crontab
+	echo -e "\n# Git update script\n0 8 * * 7\t$USER\t$HOME/.git_update/git_update.sh" | sudo tee -a /etc/crontab
 }
 
 git_personal() {
@@ -188,6 +188,13 @@ recon_tools() {
 
 	# GitTools
 	git clone https://github.com/internetwache/GitTools /opt/GitTools
+	
+	# ffuf
+	git clone https://github.com/ffuf/ffuf /opt/ffuf
+	cd /opt/ffuf
+	go get
+	go build
+	cd ~
 }
 
 re_be_tools() {
