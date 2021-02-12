@@ -50,8 +50,8 @@ python_setup() {
 java_setup() {
 	# Set up Java
 	sudo apt install -y openjdk-11-jdk openjdk-11-jre openjdk-11-dbg openjdk-11-doc
-	echo "\n\n# Java\nexport JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
-	echo "\nexport PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.bashrc
+	echo -e "\n\n# Java\nexport JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
+	echo -e "\nexport PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.bashrc
 }
 
 go_setup() {
