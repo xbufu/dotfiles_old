@@ -271,13 +271,14 @@ privesc_tools() {
 #         START         #
 #########################
 
-cd $HOME
+cd ~
 
 # Perform full update
-#sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
+sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 
 user=$USER
 sudo chown -R $user:$user /opt
+
 # Prerequisites
 git_ssh_check
 path_fixes
@@ -286,6 +287,7 @@ basic_tools
 # Configs and repos 
 git_setup
 config_setup
+git_personal
 
 # Programming languages
 python_setup
