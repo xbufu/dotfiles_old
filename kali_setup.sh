@@ -14,6 +14,15 @@ git_ssh_check() {
 	fi
 }
 
+path_fixes() { 
+	# Change owner of opt folder
+	#usr="$USER"
+	#sudo -R chown $usr:$usr /opt
+
+	# Set up path for local binaries
+	printf "\n# Fix for local binaries\nexport PATH=\$PATH:\$HOME/.local/bin" >> ~/home/.bashrc
+}
+
 python_setup() {
 	# Set up Python3
 	sudo apt install -y python3 python3-dev python3-venv
@@ -26,13 +35,10 @@ python_setup() {
 	pip3 install requests
 	
 	# Set up pipx
-	python3 -m pip install --user pipx
+	pip3 install pipx
 	python3 -m pipx ensurepath
 	read -n 1 -p "Append /home/$USER/.local/bin to secure_path (ENTER to continue):"
 	sudo visudo /etc/sudoers
-	echo -e "\n# pipx" >> ~/.bashrc
-	echo -e "export PATH=\$PATH:\$HOME/.local/bin" >> ~/.bashrc
-	echo -e "eval \"\$(register-python-argcomplete pipx)\"" >> ~/.bashrc
 
 	# Set up Python2
 	sudo apt install -y python2
@@ -41,17 +47,17 @@ python_setup() {
 	curl https://bootstrap.pypa.io/2.7/get-pip.py -o get-pip.py
 	python2 get-pip.py
 	rm -f get-pip.py
-	pip2 install setuptools
-	pip2 install wheel
-	pip2 install requests
-	pip2 install argparse
+	python2 -m pip install setuptools
+	python2 -m pip install wheel
+	python2 -m pip install requests
+	python2 -m pip install argparse
 }
 
 java_setup() {
 	# Set up Java
 	sudo apt install -y openjdk-11-jdk openjdk-11-jre openjdk-11-dbg openjdk-11-doc
-	echo -e "\n# Java\nexport JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
-	echo -e "\nexport PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.bashrc
+	echo "\n\n# Java\nexport JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
+	echo "\nexport PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.bashrc
 }
 
 go_setup() {
@@ -59,7 +65,7 @@ go_setup() {
 	wget https://golang.org/dl/go1.15.8.linux-amd64.tar.gz -O go1.15.8.linux-amd64.tar.gz
 	sudo tar -C /usr/local -xzf go1.15.8.linux-amd64.tar.gz
 	rm -f go1.15.8.linux-amd64.tar.gz
-	echo -e "\n# GoLang\nexport PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
+	printf "\n\n# GoLang\nexport PATH=\$PATH:/usr/local/go/bin"
 }
 
 config_setup() {
@@ -103,10 +109,6 @@ kali_fixes() {
 	# Disable terminal beep
 	echo "blacklist pcspkr" | sudo tee /etc/modprobe.d/nobeep.conf
 	xset b off
-
-	# Set root password
-	read -n 1 -p "Set root password (ENTER to continue):"
-	sudo passwd root
 }
 
 nmap_fix() {
@@ -118,7 +120,6 @@ nmap_fix() {
 }
 
 impacket_fix() {
-	# Set up impacket
 	wget https://github.com/SecureAuthCorp/impacket/releases/download/impacket_0_9_22/impacket-0.9.22.tar.gz
 	tar xvf ~/impacket-0.9.22.tar.gz
 	mv impacket-0.9.22 /opt/impacket-0.9.22
@@ -127,22 +128,22 @@ impacket_fix() {
 	pip3 uninstall impacket
 	chmod -R 755 /opt/impacket-0.9.22
 	pip3 install lsassy
-	pip install flask
-	pip install pyasn1
-	pip install pycryptodomex
-	pip install pyOpenSSL
-	pip install ldap3
-	pip install ldapdomaindump
-	pip install wheel
+	python2 -m pip install flask
+	python2 -m pip install pyasn1
+	python2 -m pip install pycryptodomex
+	python2 -m pip install pyOpenSSL
+	python2 -m pip install ldap3
+	python2 -m pip install ldapdomaindump
+	python2 -m pip install wheel
 	cd /opt/impacket-0.9.22
-	pip install .
+	python2 -m pip install .
 	pip3 install .
 	sudo apt reinstall -y python3-impacket impacket-scripts
 	cd ~
 }
 
 basic_tools() {
-	sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal htop wordlists
+	sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal htop
 	
 	read -n 1 -p "Set default terminal emulator (ENTER to continue):"
 	sudo update-alternatives --config x-terminal-emulator
@@ -151,8 +152,6 @@ basic_tools() {
 get_bash() {
 	sudo apt purge -y zsh
 	chsh -s /bin/bash
-	read -n 1 -p "Change your shell in /etc/passwd (ENTER to continue):"
-	sudo vi /etc/passwd
 }
 
 git_setup() {
@@ -178,7 +177,7 @@ recon_tools() {
 	wget https://github.com/epi052/feroxbuster/releases/download/v2.0.0/feroxbuster_amd64.deb.zip -O feroxbuster_amd64.deb.zip
 	unzip feroxbuster_amd64.deb.zip
 	sudo apt install -y ~/feroxbuster_2.0.0_amd64.deb
-	rm -f feroxbuster_2.0.0_amd64.deb feroxbuster_amd64.deb.zip
+	rm -f feroxbuster_2.0.0_amd64.deb
 
 	# Set up AutoRecon
 	sudo apt install -y seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
@@ -194,6 +193,9 @@ recon_tools() {
 
 	# GitTools
 	git clone https://github.com/internetwache/GitTools /opt/GitTools
+
+	# ffuf
+	go get -u github.com/ffuf/ffuf
 }
 
 re_be_tools() {
@@ -220,7 +222,6 @@ re_be_tools() {
 	mv ghidra_9.2.2_PUBLIC /opt/ghidra
 	rm -f ghidra_9.2.2.zip
 	sudo ln -s /opt/ghidra/ghidraRun /usr/bin/ghidra
-	git clone https://github.com/zackelia/ghidra-dark.git /opt/ghidra-dark
 	
 	# Install radare2 and cutter
 	sudo apt install -y radare2 radare2-cutter
@@ -274,15 +275,16 @@ privesc_tools() {
 #         START         #
 #########################
 
-cd ~
-usr=$USER
-sudo chown -R $usr:$usr /opt
+cd $HOME
 
 # Perform full update
-sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
+#sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 
+user=$USER
+sudo chown -R $user:$user /opt
 # Prerequisites
 git_ssh_check
+path_fixes
 basic_tools
 
 # Configs and repos 
@@ -304,8 +306,3 @@ recon_tools
 re_be_tools
 crypto_tools
 privesc_tools
-
-echo -e "\n\n######################################\n\n"
-echo -e "Done! Restart to get working shell and path\n"
-echo -e "Run ghidra once then run \"python3 install.py --path /opt/ghidra\" from /opt/ghidra-dark"
-
