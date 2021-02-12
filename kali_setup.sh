@@ -194,9 +194,6 @@ recon_tools() {
 
 	# GitTools
 	git clone https://github.com/internetwache/GitTools /opt/GitTools
-
-	# ffuf
-	go get -u github.com/ffuf/ffuf
 }
 
 re_be_tools() {
