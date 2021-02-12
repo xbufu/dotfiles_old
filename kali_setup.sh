@@ -14,15 +14,6 @@ git_ssh_check() {
 	fi
 }
 
-path_fixes() { 
-	# Change owner of opt folder
-	#usr="$USER"
-	#sudo -R chown $usr:$usr /opt
-
-	# Set up path for local binaries
-	printf "\n# Fix for local binaries\nexport PATH=\$PATH:\$HOME/.local/bin" >> ~/home/.bashrc
-}
-
 python_setup() {
 	# Set up Python3
 	sudo apt install -y python3 python3-dev python3-venv
@@ -39,6 +30,9 @@ python_setup() {
 	python3 -m pipx ensurepath
 	read -n 1 -p "Append /home/$USER/.local/bin to secure_path (ENTER to continue):"
 	sudo visudo /etc/sudoers
+	echo -e "\n# pipx" >> ~/.bashrc
+	echo -e "export PATH=\$PATH:\$HOME/.local/bin" >> ~/.bashrc
+	echo -e "eval \"\$(register-python-argcomplete pipx)\"" >> ~/.bashrc
 
 	# Set up Python2
 	sudo apt install -y python2
