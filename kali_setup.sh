@@ -147,6 +147,7 @@ basic_tools() {
 	
 	read -n 1 -p "Set default terminal emulator (ENTER to continue):"
 	sudo update-alternatives --config x-terminal-emulator
+	sudo apt purge qterminal mate-terminal
 }
 
 get_bash() {
