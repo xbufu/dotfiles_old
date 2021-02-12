@@ -298,3 +298,6 @@ recon_tools
 re_be_tools
 crypto_tools
 privesc_tools
+
+# Clean up
+sudo apt -y autoremove && sudo apt -y autoclean
