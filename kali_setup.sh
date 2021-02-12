@@ -83,6 +83,9 @@ config_setup() {
 	mkdir -p ~/.config/feroxbuster
 	cp ~/dotfiles/ferox-config.toml ~/.config/feroxbuster/ferox-config.toml
 
+	# Set up rustscan config
+	cp ~/dotfiles/.rustscan.toml ~/.rustscan.toml
+
 	# Set up git update crontab
 	mkdir ~/.git_update
 	cp ~/dotfiles/git_update.sh ~/.git_update/git_update.sh
