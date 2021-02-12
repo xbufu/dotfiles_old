@@ -172,7 +172,7 @@ recon_tools() {
 	wget https://github.com/epi052/feroxbuster/releases/download/v2.0.0/feroxbuster_amd64.deb.zip -O feroxbuster_amd64.deb.zip
 	unzip feroxbuster_amd64.deb.zip
 	sudo apt install -y ~/feroxbuster_2.0.0_amd64.deb
-	rm -f feroxbuster_2.0.0_amd64.deb
+	rm -f feroxbuster_2.0.0_amd64.deb feroxbuster_amd64.deb.zip
 
 	# Set up AutoRecon
 	sudo apt install -y seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
