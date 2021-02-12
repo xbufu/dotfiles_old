@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Fix PATH for pip and go
-PATH=$PATH:$HOME/.local/bin:/usr/local/go/bin
+PATH=$PATH:$HOME/.local/bin:/usr/local/go/bin:$HOME/go/bin
 
 git_ssh_check() {
 	if [ ! -f ~/.ssh/id_ed25519 ]; then
