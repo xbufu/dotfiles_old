@@ -59,7 +59,7 @@ go_setup() {
 	wget https://golang.org/dl/go1.15.8.linux-amd64.tar.gz -O go1.15.8.linux-amd64.tar.gz
 	sudo tar -C /usr/local -xzf go1.15.8.linux-amd64.tar.gz
 	rm -f go1.15.8.linux-amd64.tar.gz
-	echo -e "\n# GoLang\nexport PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
+	echo -e "\n# GoLang\nexport PATH=\$PATH:/usr/local/go/bin:\$HOME/go/bin" >> ~/.bashrc
 }
 
 config_setup() {
@@ -190,11 +190,7 @@ recon_tools() {
 	git clone https://github.com/internetwache/GitTools /opt/GitTools
 	
 	# ffuf
-	git clone https://github.com/ffuf/ffuf /opt/ffuf
-	cd /opt/ffuf
-	go get
-	go build
-	cd ~
+	go get -u https://github.com/ffuf/ffuf
 }
 
 re_be_tools() {
