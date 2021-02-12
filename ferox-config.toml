@@ -1,4 +1,4 @@
-wordlist = "/usr/share/wordlists/seclists/Discovery/Web-Content/big.txt"
+wordlist = "/usr/share/seclists/Discovery/Web-Content/big.txt"
 status_codes = [200, 204, 301, 302, 307, 308, 401, 403, 405]
 threads = 100
 timeout = 10
@@ -6,5 +6,5 @@ verbosity = 1
 output = "scans/feroxbuster.txt"
 user_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0"
 extensions = ["php", "html", "js", "txt"]
-depth = 2
 save_state = false
+no_recursion = true
