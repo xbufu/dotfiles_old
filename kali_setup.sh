@@ -81,7 +81,7 @@ config_setup() {
 	
 	# Set up feroxbuster config
 	mkdir -p ~/.config/feroxbuster
-	cp ~/dotfiles/feroxbuster/ferox-config.toml
+	cp ~/dotfiles/ferox-config.toml ~/.config/feroxbuster/ferox-config.toml
 
 	# Set up git update crontab
 	mkdir ~/.git_update
