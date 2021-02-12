@@ -143,7 +143,7 @@ impacket_fix() {
 }
 
 basic_tools() {
-	sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal htop
+	sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal htop libmpc-dev
 	
 	read -n 1 -p "Set default terminal emulator (ENTER to continue):"
 	sudo update-alternatives --config x-terminal-emulator
