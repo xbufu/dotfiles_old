@@ -28,7 +28,7 @@ python_setup() {
 	# Set up pipx
 	pip3 install pipx
 	python3 -m pipx ensurepath
-	read -n 1 -p "Append /home/$USER/.local/bin to secure_path (ENTER to continue):"
+	read -n 1 -p "Append $HOME/.local/bin to secure_path (ENTER to continue):"
 	sudo visudo /etc/sudoers
 	echo -e "\n# pipx" >> ~/.bashrc
 	echo -e "export PATH=\$PATH:\$HOME/.local/bin" >> ~/.bashrc
@@ -152,7 +152,7 @@ basic_tools() {
 
 get_bash() {
 	sudo apt purge -y zsh
-	chsh -s /bin/bash
+	chsh -s /bin/bash $USER
 }
 
 git_setup() {
@@ -282,8 +282,12 @@ cd ~
 # Perform full update
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 
+
 user=$USER
-sudo chown -R $user:$user /opt
+
+if [ "$user" != "root" ]; then
+	sudo chown -R $user:$user /opt
+fi
 
 # Prerequisites
 git_ssh_check
