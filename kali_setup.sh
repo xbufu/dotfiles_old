@@ -97,6 +97,7 @@ git_personal() {
 	# Get personal repositories
 	git clone git@github.com:xbufu/CySec.git ~/CySec
 	git clone git@github.com:xbufu/LearnCodeTheHardWay.git ~/LearnCodeTheHardWay
+	git clone git@github.com:xbufu/CTF-Scan.git ~/CTF-Scan
 }
 
 kali_fixes() {
