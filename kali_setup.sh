@@ -63,9 +63,6 @@ go_setup() {
 }
 
 config_setup() {
-	# Get config files 
-	git clone git@github.com:xbufu/dotfiles.git ~/dotfiles
-	
 	# Get bash configs
 	cp ~/dotfiles/.bashrc ~/.bashrc
 	cp ~/dotfiles/.bash_aliases ~/.bash_aliases
@@ -95,7 +92,7 @@ config_setup() {
 
 git_personal() {
 	# Get personal repositories
-	git clone git@github.com:xbufu/CySec.git ~/CySec
+	git clone git@github.com:xbufu/CySec.git ~/CyberSecurity
 	git clone git@github.com:xbufu/LearnCodeTheHardWay.git ~/LearnCodeTheHardWay
 	git clone git@github.com:xbufu/CTF-Scan.git ~/CTF-Scan
 }
@@ -113,11 +110,11 @@ kali_fixes() {
 }
 
 nmap_fix() {
-	sudo rm -f /usr/share/nmap/scripts/clamav-exec.nse
+	rm -f /usr/share/nmap/scripts/clamav-exec.nse
 	wget https://raw.githubusercontent.com/nmap/nmap/master/scripts/clamav-exec.nse -O clamav-exec.nse
-	sudo mv clamav-exec.nse /usr/share/nmap/scripts/clamav-exec.nse
+	mv clamav-exec.nse /usr/share/nmap/scripts/clamav-exec.nse
 	wget https://raw.githubusercontent.com/onomastus/pentest-tools/master/fixed-http-shellshock.nse -O http-shellshock.nse
-	sudo mv http-shellshock.nse /usr/share/nmap/scripts/http-shellshock.nse
+	mv http-shellshock.nse /usr/share/nmap/scripts/http-shellshock.nse
 }
 
 impacket_fix() {
@@ -125,8 +122,6 @@ impacket_fix() {
 	tar xvf ~/impacket-0.9.22.tar.gz
 	mv impacket-0.9.22 /opt/impacket-0.9.22
 	rm -f impacket-0.9.22.tar.gz
-	pip2 uninstall impacket
-	pip3 uninstall impacket
 	chmod -R 755 /opt/impacket-0.9.22
 	pip3 install lsassy
 	python2 -m pip install flask
@@ -139,58 +134,59 @@ impacket_fix() {
 	cd /opt/impacket-0.9.22
 	python2 -m pip install .
 	pip3 install .
-	sudo apt reinstall -y python3-impacket impacket-scripts
+	apt reinstall -y python3-impacket impacket-scripts
 	cd ~
 }
 
 basic_tools() {
-	sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal htop libmpc-dev
+	apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 gnome-terminal htop libmpc-dev
 	
 	read -n 1 -p "Set default terminal emulator (ENTER to continue):"
-	sudo update-alternatives --config x-terminal-emulator
-	sudo apt purge -y qterminal mate-terminal
+	update-alternatives --config x-terminal-emulator
+	apt purge -y qterminal mate-terminal
 }
 
 get_bash() {
-	sudo apt purge -y zsh
+	apt purge -y zsh
 	chsh -s /bin/bash $USER
 }
 
 git_setup() {
-	sudo apt install -y git
+	apt install -y git
 	git config --global pull.rebase true
 	read -p "Enter git username: " git_user
 	git config --global user.name "$git_user"
 	read -p "Enter git email: " git_email
 	git config --global user.email "$git_email"
+	git config --global init.defaultBranch main
 	ssh -T git@github.com
 }
 
 recon_tools() {
 	# Set up rustscan
 	wget https://github.com/RustScan/RustScan/releases/download/2.0.1/rustscan_2.0.1_amd64.deb -O rustscan_2.0.1_amd64.deb
-	sudo apt install -y ~/rustscan_2.0.1_amd64.deb
+	apt install -y ~/rustscan_2.0.1_amd64.deb
 	rm -f rustscan_2.0.1_amd64.deb
 	
 	# Install gobuster
-	sudo apt install -y gobuster
+	apt install -y gobuster
 	
 	# Set up feroxbuster
 	wget https://github.com/epi052/feroxbuster/releases/download/v2.0.0/feroxbuster_amd64.deb.zip -O feroxbuster_amd64.deb.zip
 	unzip feroxbuster_amd64.deb.zip
-	sudo apt install -y ~/feroxbuster_2.0.0_amd64.deb
+	apt install -y ~/feroxbuster_2.0.0_amd64.deb
 	rm -f feroxbuster_2.0.0_amd64.deb feroxbuster_amd64.deb.zip
 
 	# Set up AutoRecon
-	sudo apt install -y seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
+	apt install -y seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
 	pipx install git+https://github.com/Tib3rius/AutoRecon.git
 
 	# Set up enum4linux-ng
-	sudo apt install -y smbclient python3-ldap3 python3-yaml python3-impacket
+	apt install -y smbclient python3-ldap3 python3-yaml python3-impacket
 	git clone https://github.com/cddmp/enum4linux-ng.git /opt/enum4linux-ng
 	cd /opt/enum4linux-ng
 	pip3 install -r requirements.txt
-	sudo ln -s /opt/enum4linux-ng/enum4linux-ng.py /usr/bin/enum4linux-ng
+	ln -s /opt/enum4linux-ng/enum4linux-ng.py /usr/bin/enum4linux-ng
 	cd ~
 
 	# GitTools
@@ -223,24 +219,25 @@ re_be_tools() {
 	unzip ghidra_9.2.2.zip
 	mv ghidra_9.2.2_PUBLIC /opt/ghidra
 	rm -f ghidra_9.2.2.zip
-	sudo ln -s /opt/ghidra/ghidraRun /usr/bin/ghidra
+	ln -s /opt/ghidra/ghidraRun /usr/bin/ghidra
 	git clone https://github.com/zackelia/ghidra-dark /opt/ghidra-dark
 	
 	# Install radare2 and cutter
-	sudo apt install -y radare2 radare2-cutter
+	apt install -y radare2 radare2-cutter
 }
 
 crypto_tools() {
 	# Install name-that-hash and stegcracker
 	pipx install name-that-hash
 	pipx install stegcracker
-	sudo apt install -y binwalk exiftool steghide xxd ghex
+	apt install -y binwalk exiftool steghide xxd ghex
 	git clone https://github.com/Ganapati/RsaCtfTool /opt/RsaCtfTool
 	pip3 install -r /opt/RsaCtfTool/requirements.txt
 }
 
 privesc_tools() {
 	# Linux
+	git clone https://github.com/andrew-d/static-binaries.git /opt/static-binaries
 	git clone https://github.com/rebootuser/LinEnum.git /opt/LinEnum
 	git clone https://github.com/jondonas/linux-exploit-suggester-2 /opt/linux-exploit-suggester-2
 	git clone https://github.com/Anon-Exploiter/SUID3NUM /opt/SUID3NUM
@@ -272,6 +269,7 @@ privesc_tools() {
 	ln -s /opt/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASbat/winPEAS.bat ~/PrivEsc/winpeas.bat
 	ln -s /opt/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASexe/winPEAS/bin/x64/Release/winPEAS.exe ~/PrivEsc/winpeas64.exe
 	ln -s /opt/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASexe/winPEAS/bin/x86/Release/winPEAS.exe ~/PrivEsc/winpeas32.exe
+	ln -s /opt/static-binaries/binaries/linux/x86_64/ncat ~/PrivEsc/nc
 }
 
 #########################
@@ -281,7 +279,7 @@ privesc_tools() {
 cd ~
 
 # Perform full update
-sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
+apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 
 
 user=$USER
@@ -317,7 +315,7 @@ crypto_tools
 privesc_tools
 
 # Clean up
-sudo apt -y autoremove && sudo apt -y autoclean
+apt -y autoremove && sudo apt -y autoclean
 
 echo -e "\n\n########################################\n"
 echo -e "Set up finished! Relog for all settings to apply.\n"
