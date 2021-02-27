@@ -9,7 +9,7 @@ sudo apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl
 
 # Change shell to bash
 chsh
-sudo apt purge zsh
+sudo apt -y purge zsh
 
 # Set up git
 sudo apt install -y git
@@ -40,12 +40,12 @@ echo -e "\n# Turn off beep\nxset b off" | sudo tee -a /etc/profile
 touch ~/.hushlogin
 
 # Python3
-sudo apt install python3 python3-pip python3-dev
+sudo apt install -y python3 python3-pip python3-dev
 python3 -m pip install setuptools
 python3 -m pip install wheel 
 
 # Python2
-sudo apt install python2
+sudo apt install -y python2
 curl https://bootstrap.pypa.io/2.7/get-pip.py -o ~/get-pip.py
 python2 ~/get-pip.py
 rm -f ~/get-pip.py
@@ -53,7 +53,7 @@ python2 -m pip install setuptools
 python2 -m pip install wheel
 
 # pipx
-sudo apt install python3-venv
+sudo apt install -y python3-venv
 python3 -m pip install --user pipx
 python3 -m pipx ensurepath
 read -n 1 -p "Append $HOME/.local/bin to secure_path (ENTER to continue):"
@@ -81,6 +81,7 @@ rm -f ~/rustscan_2.0.1_amd64.deb
 sudo apt install -y gobuster
 
 # Set up feroxbuster
+cd ~
 wget https://github.com/epi052/feroxbuster/releases/download/v2.0.0/feroxbuster_amd64.deb.zip -O ~/feroxbuster_amd64.deb.zip
 unzip ~/feroxbuster_amd64.deb.zip
 sudo apt install -y ~/feroxbuster_2.0.0_amd64.deb
