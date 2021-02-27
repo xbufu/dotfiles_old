@@ -10,6 +10,10 @@ set expandtab
 set cursorline
 set laststatus=2
 
+let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
+let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
+let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
+
 " Plugins
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
