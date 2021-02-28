@@ -72,7 +72,7 @@ wget https://github.com/autokey/autokey/releases/download/v0.95.10/autokey-commo
 VERSION="0.95.10-0"
 sudo dpkg --install autokey-common_${VERSION}_all.deb autokey-gtk_${VERSION}_all.deb
 sudo apt -y --fix-broken install
-python3 -m pip install pyinput
+python3 -m pip install pynput
 mkdir -p ~/.config/autokey/data/personal
 cp ~/dotfiles/autokey/tmux.py ~/dotfiles/autokey/.tmux.json ~/.config/autokey/data/personal/
 
