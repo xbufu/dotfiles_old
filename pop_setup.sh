@@ -148,3 +148,5 @@ sudo apt-get install x2goclient
 
 # Steam
 sudo apt install steam
+
+sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
