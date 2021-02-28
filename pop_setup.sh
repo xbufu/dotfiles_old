@@ -6,6 +6,7 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt aut
 
 sudo apt install -y curl wget tmux vim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-`uname -r` htop libmpc-dev gnome-tweaks gnome-shell-extensions chrome-gnome-shell nmap gdebi vlc
 
+# Git
 sudo apt install -y git
 git config --global pull.rebase true
 read -p "Enter git username: " git_user
@@ -14,6 +15,10 @@ read -p "Enter git email: " git_email
 git config --global user.email "$git_email"
 git config --global init.defaultBranch main
 ssh -T git@github.com
+
+# Personal repos
+git clone git@github.com:xbufu/RPL.git ~/RPL
+git clone git@github.com:xbufu/LearnCodeTheHardWay.git ~/LearnCodeTheHardWay
 
 # Config files
 ln ~/dotfiles/.bash_aliases ~/.bash_aliases
