@@ -75,6 +75,7 @@ sudo apt -y --fix-broken install
 python3 -m pip install pynput
 mkdir -p ~/.config/autokey/data/personal
 cp ~/dotfiles/autokey/tmux.py ~/dotfiles/autokey/.tmux.json ~/.config/autokey/data/personal/
+rm -f ~/autokey-common_0.95.10-0_all.deb ~/autokey-gtk_0.95.10-0_all.deb
 
 # Email
 sudo apt install -y thunderbird
@@ -149,9 +150,9 @@ rm -f ~/teamviewer_amd64.deb
 # X2Go
 sudo add-apt-repository ppa:x2go/stable
 sudo apt update
-sudo apt-get install x2goclient
+sudo apt install -y x2goclient
 
 # Steam
-sudo apt install steam
+sudo apt install -y steam
 
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
