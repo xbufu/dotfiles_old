@@ -170,6 +170,14 @@ ln -s /opt/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASexe/winPEAS
 ln -s /opt/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASexe/winPEAS/bin/x86/Release/winPEAS.exe ~/PrivEsc/winpeas32.exe
 ln -s /opt/static-binaries/binaries/linux/x86_64/ncat ~/PrivEsc/nc
 
+git clone https://github.com/saghul/lxd-alpine-builder /opt/lxd-alpine-builder
+cd /opt/lxd-alpine-builder
+mkdir -p /opt/lxd-alpine-builder/rootfs/usr/share/alpine-mirrors
+wget http://dl-cdn.alpinelinux.org/alpine/MIRRORS.txt -O /opt/lxd-alpine-builder/rootfs/usr/share/alpine-mirrors/MIRRORS.txt
+sudo ./build-alpine
+ln -s /opt/lxd-alpine-builder/alpine-v3.13-x86_64-20210228_2142.tar.gz ~/PrivEsc/alpine.tar.gz
+cd ~
+
 # Final update and clean up
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 
