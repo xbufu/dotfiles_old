@@ -131,7 +131,7 @@ ignore-service-names = [
 
     [[http.scan]]
     name = 'feroxbuster'
-    command = 'feroxbuster -u {scheme}://{address}:{port} -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -x txt,html,php,asp,aspx,jsp -t 100 -o "{scandir}/{protocol}_{port}_{scheme}_feroxbuster.txt" -n -k'
+    command = 'feroxbuster -u {scheme}://{address}:{port} -w /usr/share/seclists/Discovery/Web-Content/common.txt -x txt,html,php,asp,aspx,jsp -t 100 -o "{scandir}/{protocol}_{port}_{scheme}_feroxbuster.txt" -d 2 -k'
 
     [[http.manual]]
     description = '(dirsearch) Multi-threaded recursive directory/file enumeration for web servers using various wordlists:'
