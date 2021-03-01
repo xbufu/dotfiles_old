@@ -1,5 +1,5 @@
 alias full-update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
-alias vi='vim'
+alias vi='nvim'
 alias up='sudo python3 -m http.server 80'
 alias pyenv2='virtualenv -p /usr/bin/python2 venv && source venv/bin/activate'
 alias pyenv3='virtualenv -p /usr/bin/python3 venv && source venv/bin/activate'

@@ -1,3 +1,0 @@
-command = ["-A", "-Pn", "-vvv", "--min-rate=1000"]
-accessible = true
-ulimit = 5000
