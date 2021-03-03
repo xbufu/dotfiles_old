@@ -233,3 +233,5 @@ pwn_tools
 crypto_tools
 privesc_tools
 config_setup
+
+sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove && sudo apt -y autoclean
