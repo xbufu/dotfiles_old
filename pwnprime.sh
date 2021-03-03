@@ -155,9 +155,11 @@ function config_setup() {
     ln ~/dotfiles/.bash_aliases ~/.bash_aliases
 
     # Set up neovim
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     mkdir -p ~/.config/nvim
     ln ~/dotfiles/init.vim ~/.config/nvim/init.vim
-    nvim --headless +PlugInstall +q
+    nvim --headless +PlugInstall +qa
 
     # Set up tmux
     ln ~/dotfiles/.tmux.conf ~/.tmux.conf
@@ -169,7 +171,7 @@ function config_setup() {
     wget https://github.com/autokey/autokey/releases/download/v0.95.10/autokey-gtk_0.95.10-0_all.deb -O ~/autokey-gtk_0.95.10-0_all.deb
     VERSION="0.95.10-0"
     sudo dpkg --install autokey-common_${VERSION}_all.deb autokey-gtk_${VERSION}_all.deb
-    sudo apt --fix-broken install
+    sudo apt -y --fix-broken install
 
     # Set up git repo update script
     mkdir ~/.git_update
