@@ -2,7 +2,7 @@
 
 function kali_fixes() {
     # Pimp My Kali
-    git clone https://github.com/Dewalt-arch/pimpmykali.git /opt/pimpmykali.git
+    git clone https://github.com/Dewalt-arch/pimpmykali.git /opt/pimpmykali
     sudo /opt/pimpmykali/pimpmykali.sh
     
     # Disable login message
@@ -237,3 +237,6 @@ privesc_tools
 config_setup
 
 sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove && sudo apt -y autoclean
+
+echo -e "To enable dark mode theme for ghidra run it once and close it. Then run the following command:\n"
+echo -e "\t python3 /opt/ghidra-dark/install.py --path /opt/ghidra"
