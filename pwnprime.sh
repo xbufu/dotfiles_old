@@ -172,6 +172,7 @@ function config_setup() {
     VERSION="0.95.10-0"
     sudo dpkg --install autokey-common_${VERSION}_all.deb autokey-gtk_${VERSION}_all.deb
     sudo apt -y --fix-broken install
+    rm -f ~/autokey-common_0.95.10-0_all.deb ~/autokey-gtk_0.95.10-0_all.deb
 
     # Set up git repo update script
     mkdir ~/.git_update
@@ -198,11 +199,10 @@ echo "
 echo ""
 echo ""
 echo "
-Welcome to The PWNPrime Setup Script. This script is based off of a fresh installation of Kali Linux 2020.4.
-First the machine will create a filesystem for all folders that are used and make new directories for storage of assets that are whilist on an engagement.
-It will then run through installation of PimpMyKali to fix dependancy/package issues w/ your current version of Kali Linux.
+Welcome to The PWNPrime Setup Script. This script is based off of a fresh installation of Kali Linux 2021.1.
+First it install basic tools generally needed and tt will then run through installation of PimpMyKali to fix dependancy/package issues w/ your current version of Kali Linux.
 Afterwards, it will install RustScan, feroxbuster, ffuf, SecLists, enum4linux-ng, tmux (redesigned), CrackMapExec, Joplin, and more...
-Enjoy the script and happy hacking! Cheers from the 'coffee guy'!
+Enjoy the script and happy hacking! Cheers from the 'tea guy'!
 -- bufu
 "
 
