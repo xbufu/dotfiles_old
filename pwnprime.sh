@@ -112,6 +112,9 @@ function privesc_tools() {
     git clone https://github.com/jondonas/linux-exploit-suggester-2 /opt/linux-exploit-suggester-2
     git clone https://github.com/Anon-Exploiter/SUID3NUM /opt/SUID3NUM
     git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite /opt/privilege-escalation-awesome-scripts-suite
+    git clone https://github.com/djjoa/genshell /opt/genshell
+    chmod +x /opt/genshell/genshell
+    sudo ln -s /opt/genshell/genshell /usr/local/bin/genshell
     mkdir /opt/pspy
     cd /opt/pspy
     wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy32
