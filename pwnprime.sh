@@ -115,6 +115,7 @@ function privesc_tools() {
     git clone https://github.com/djjoa/genshell /opt/genshell
     chmod +x /opt/genshell/genshell
     sudo ln -s /opt/genshell/genshell /usr/local/bin/genshell
+    pipx install git+https://github.com/ihebski/DefaultCreds-cheat-sheet.git
     mkdir /opt/pspy
     cd /opt/pspy
     wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy32
