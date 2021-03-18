@@ -219,7 +219,6 @@ chsh -s `which bash`
 # Note taking software
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
 
-kali_fixes
 git_setup
 pipx_setup
 java_setup
