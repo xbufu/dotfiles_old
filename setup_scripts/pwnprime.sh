@@ -99,6 +99,7 @@ function pwn_tools() {
 
 function crypto_tools() {
     pipx install name-that-hash
+    pipx install search-that-hash
     pipx install stegcracker
     apt install -y binwalk exiftool steghide xxd ghex
     git clone https://github.com/Ganapati/RsaCtfTool /opt/RsaCtfTool
