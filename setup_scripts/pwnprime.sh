@@ -156,22 +156,33 @@ function privesc_tools() {
 
 function config_setup() {
     git clone git@github.com:xbufu/dotfiles.git ~/dotfiles
-    ln ~/dotfiles/bash/.bash_aliases ~/.bash_aliases
+    ln ~/dotfiles/.bash_aliases ~/.bash_aliases
 
     # Set up neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     mkdir -p ~/.config/nvim
-    ln ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
+    ln ~/dotfiles/init.vim ~/.config/nvim/init.vim
     nvim --headless +PlugInstall +qa
 
     # Set up tmux
-    ln ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
+    ln ~/dotfiles/.tmux.conf ~/.tmux.conf
     mkdir -p ~/.config/tmux
-    ln ~/dotfiles/tmux/vpn.sh ~/.config/tmux/vpn.sh
+    ln ~/dotfiles/vpn.sh ~/.config/tmux/vpn.sh
+
+    # Autokey
+    wget https://github.com/autokey/autokey/releases/download/v0.95.10/autokey-common_0.95.10-0_all.deb -O ~/autokey-common_0.95.10-0_all.deb
+    wget https://github.com/autokey/autokey/releases/download/v0.95.10/autokey-gtk_0.95.10-0_all.deb -O ~/autokey-gtk_0.95.10-0_all.deb
+    VERSION="0.95.10-0"
+    dpkg --install autokey-common_${VERSION}_all.deb autokey-gtk_${VERSION}_all.deb
+    apt -y --fix-broken install
+    rm -f ~/autokey-common_0.95.10-0_all.deb ~/autokey-gtk_0.95.10-0_all.deb
 
     # Set up git repo update script
-    echo -e "\n# Git update script\n0 8 * * 7\t$USER\t$HOME/dotfiles/git_update.sh" | tee -a /etc/crontab
+    mkdir ~/.git_update
+    ln ~/dotfiles/git_update.sh ~/.git_update/git_update.sh
+    chmod +x ~/.git_update/git_update.sh
+    echo -e "\n# Git update script\n0 8 * * 7\t$USER\t$HOME/.git_update/git_update.sh" | tee -a /etc/crontab
 
     # Autorecon
     arpath='~/.local/pipx/venvs/autorecon/lib/python3.9/site-packages/autorecon/config'
