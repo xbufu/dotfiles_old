@@ -217,8 +217,11 @@ apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev 
 chsh -s `which bash`
 
 # Note taking software
-wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
+apt install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub md.obsidian.Obsidian
 
+# Functions
 kali_fixes
 git_setup
 pipx_setup
