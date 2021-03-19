@@ -3,8 +3,9 @@
 function kali_fixes() {
     # Pimp My Kali
     git clone https://github.com/Dewalt-arch/pimpmykali.git /opt/pimpmykali
-    sudo /opt/pimpmykali/pimpmykali.sh
-    
+    /opt/pimpmykali/pimpmykali.sh
+    cp -Rvf /home/bufu/* /home/bufu/.* /root
+
     # Disable login message
     touch ~/.hushlogin
 }
@@ -40,19 +41,12 @@ function enum_tools() {
     apt install -y ~/rustscan_2.0.1_amd64.deb
     rm -f ~/rustscan_2.0.1_amd64.deb
     
-    # Install gobuster
-    apt install -y gobuster
-    
     # Set up feroxbuster
-    cd ~
-    wget https://github.com/epi052/feroxbuster/releases/download/v2.0.0/feroxbuster_amd64.deb.zip -O ~/feroxbuster_amd64.deb.zip
-    unzip ~/feroxbuster_amd64.deb.zip
-    apt install -y ~/feroxbuster_2.0.0_amd64.deb
-    rm -f ~/feroxbuster_2.0.0_amd64.deb ~/feroxbuster_amd64.deb.zip
-    
+    apt install feroxbuster
+
     # Set up AutoRecon
     apt install -y seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
-    pipx install git+https://github.com/Tib3rius/AutoRecon.git
+    pipx install git+https://github.com/xbufu/AutoRecon.git
     
     # Set up enum4linux-ng
     apt install -y smbclient python3-ldap3 python3-yaml python3-impacket
@@ -157,28 +151,23 @@ function privesc_tools() {
 
 function config_setup() {
     git clone git@github.com:xbufu/dotfiles.git ~/dotfiles
-    ln ~/dotfiles/bash/.bash_aliases ~/.bash_aliases
+    ln -s ~/dotfiles/bash/.bash_aliases ~/.bash_aliases
 
     # Set up neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     mkdir -p ~/.config/nvim
-    ln ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
+    ln -s ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
     nvim --headless +PlugInstall +qa
 
     # Set up tmux
-    ln ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
+    ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
     mkdir -p ~/.config/tmux
-    ln ~/dotfiles/tmux/vpn.sh ~/.config/tmux/vpn.sh
+    ln -s ~/dotfiles/tmux/vpn.sh ~/.config/tmux/vpn.sh
 
     # Set up git repo update script
     echo -e "\n# Git update script\n0 8 * * 7\t$USER\t$HOME/dotfiles/git_update.sh" | tee -a /etc/crontab
 
-    # Autorecon
-    arpath='~/.local/pipx/venvs/autorecon/lib/python3.9/site-packages/autorecon/config'
-    rm -f $arpath/port-scan-profiles-default.toml $arpath/service-scans-default.toml
-    ln ~/dotfiles/autorecon/port-scan-profiles-default.toml $arpath/port-scan-profiles-default.toml
-    ln ~/dotfiles/autorecon/port-scan-profiles-default.toml $arpath/service-scans-default.toml
 }
 
 echo "
@@ -200,27 +189,28 @@ Enjoy the script and happy hacking! Cheers from the 'tea guy'!
 -- bufu
 "
 
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
 # Path fix for python and go
 PATH=$PATH:$HOME/.local/bin:/usr/local/go/bin:$HOME/go/bin
 
 # Kali Linux Update and Upgrade
 apt update && apt -y upgrade && apt -y autoremove && apt -y autoclean
 
-# Change owner of opt
-user=$USER
-chown $user:$user /opt
-unset user
-
 # Install basic tools
-apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 htop libmpc-dev
+apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 htop libmpc-dev python3-dev python2-dev
+
 
 # Set default shell to bash
 chsh -s `which bash`
 
-# Note taking software
-apt install flatpak
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub md.obsidian.Obsidian
+# Install VSCode
+wget -O ~/vscode.deb https://az764295.vo.msecnd.net/stable/2b9aebd5354a3629c3aba0a5f5df49f43d6689f8/code_1.54.3-1615806378_amd64.deb
+apt install -y ~/vscode.deb
+rm -f ~/vscode.deb
 
 # Functions
 kali_fixes
@@ -232,6 +222,9 @@ pwn_tools
 crypto_tools
 privesc_tools
 config_setup
+
+python3 -m pip install pysmb
+python2 -m pip install pysmb
 
 apt update && apt -y upgrade && apt -y autoremove && apt -y autoclean
 
