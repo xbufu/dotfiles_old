@@ -12,3 +12,4 @@ alias alph='echo "AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPP
 alias gdb='gdb -q'
 alias nmap-initial='nmap -sCV -Pn -v -T4 -o nmap_initial.txt'
 alias nmap-all='nmap -sCV -p- -Pn -v -T4 -o nmap_all.txt'
+alias code='code --user-data-dir="~/.vscode-root"'
