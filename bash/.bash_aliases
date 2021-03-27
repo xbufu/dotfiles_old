@@ -12,3 +12,4 @@ alias alph='echo "AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPP
 alias gdb='gdb -q'
 alias nmap-initial='nmap -A -Pn -v -T4 -o nmap_initial.txt'
 alias nmap-all='nmap -A -p- -Pn -v -T4 -o nmap_all.txt'
+alias code='if [[ $EUID -eq 0 ]]; then code --user-data-dir /root/.vscode; else code; fi'
