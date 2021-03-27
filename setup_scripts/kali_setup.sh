@@ -30,7 +30,6 @@ function pipx_setup() {
     apt install -y python3-venv
     python3 -m pip install --user pipx
     python3 -m pipx ensurepath
-    read -n 1 -p "Append $HOME/.local/bin to secure_path (ENTER to continue):"
     visudo
 }
 
