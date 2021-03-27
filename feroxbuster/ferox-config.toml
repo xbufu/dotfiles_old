@@ -1,0 +1,4 @@
+threads = 100
+extensions = ["html", "txt", "php"]
+no_recursion = true
+save_state = false
