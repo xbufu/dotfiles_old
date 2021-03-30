@@ -1,4 +1,10 @@
-alias full-update='apt update && apt upgrade -y && apt autoremove -y && apt autoclean -y'
+if [[ $EUID -eq 0 ]]
+then
+    alias full-update='apt update && apt upgrade -y && apt autoremove -y && apt autoclean -y'
+else
+    alias full-update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove && sudo apt -y autoclean'
+fi
+
 alias vi='nvim'
 alias up='python3 -m http.server 80'
 alias pyenv2='virtualenv -p /usr/bin/python2 venv && source venv/bin/activate'
@@ -12,4 +18,3 @@ alias alph='echo "AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPP
 alias gdb='gdb -q'
 alias nmap-initial='nmap -A -Pn -v -T4 -o nmap_initial.txt'
 alias nmap-all='nmap -A -p- -Pn -v -T4 -o nmap_all.txt'
-alias code='if [[ $EUID -eq 0 ]]; then code --user-data-dir /root/.vscode; else code; fi'
