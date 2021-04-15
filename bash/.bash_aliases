@@ -8,7 +8,7 @@ then
     alias code='code --user-data-dir /root/.vscode'
 else
     alias full-update='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove && sudo apt -y autoclean'
-    alias uni-vpn='sudo openvpn --cd $HOME/.openvpn --config pers-ext.ovpn'
+    alias uni-vpn='sudo openvpn --cd $HOME/.openvpn --config stud-ext.ovpn'
 fi
 
 alias vi='nvim'
