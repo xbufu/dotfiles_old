@@ -30,21 +30,15 @@ function pipx_setup() {
     apt install -y python3-venv
     python3 -m pip install --user pipx
     python3 -m pipx ensurepath
-    visudo
 }
 
 function java_setup() {
-    apt install -y openjdk-11-jdk openjdk-11-jre openjdk-11-dbg openjdk-11-doc
+    apt install -y openjdk-15-jdk openjdk-15-jre openjdk-15-dbg openjdk-15-doc
     echo -e "\n# Java\nexport JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
     echo -e "export PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.bashrc
 }
 
-function enum_tools() {
-    # Set up rustscan
-    wget https://github.com/RustScan/RustScan/releases/download/2.0.1/rustscan_2.0.1_amd64.deb -O ~/rustscan_2.0.1_amd64.deb
-    apt install -y ~/rustscan_2.0.1_amd64.deb
-    rm -f ~/rustscan_2.0.1_amd64.deb
-    
+function enum_tools() {    
     # Set up feroxbuster
     apt install feroxbuster
 
@@ -129,21 +123,6 @@ function privesc_tools() {
     git clone https://github.com/bitsadmin/wesng /opt/wesng
     python3 -m pip install /opt/wesng
     
-    # Set up script folder for easy access
-    mkdir -p ~/privesc/linux
-    ln -s /opt/LinEnum/LinEnum.sh ~/privesc/linux/linenum.sh
-    ln -s /opt/linux-exploit-suggester-2/linux-exploit-suggester-2.pl ~/privesc/linux/les2.pl
-    ln -s /opt/SUID3NUM/suid3num.py ~/privesc/linux/suidenum.py
-    ln -s /opt/pspy/pspy32 ~/privesc/linux/pspy32
-    ln -s /opt/pspy/pspy32s ~/privesc/linux/pspy32s
-    ln -s /opt/pspy/pspy64 ~/privesc/linux/pspy64
-    ln -s /opt/pspy/pspy64s ~/privesc/linux/pspy64s
-    ln -s /opt/privilege-escalation-awesome-scripts-suite/linPEAS/linpeas.sh ~/privesc/linux/linpeas.sh
-    ln -s /opt/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASbat/winPEAS.bat ~/privesc/linux/winpeas.bat
-    ln -s /opt/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASexe/winPEAS/bin/x64/Release/winPEAS.exe ~/privesc/linux/winpeas64.exe
-    ln -s /opt/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASexe/winPEAS/bin/x86/Release/winPEAS.exe ~/privesc/linux/winpeas32.exe
-    ln -s /opt/static-binaries/binaries/linux/x86_64/ncat ~/privesc/linux/nc
-    
     git clone https://github.com/saghul/lxd-alpine-builder /opt/lxd-alpine-builder
     cd /opt/lxd-alpine-builder
     mkdir -p /opt/lxd-alpine-builder/rootfs/usr/share/alpine-mirrors
@@ -156,9 +135,6 @@ function privesc_tools() {
 function config_setup() {
     git clone git@github.com:xbufu/dotfiles.git ~/dotfiles
     ln -s ~/dotfiles/bash/.bash_aliases ~/.bash_aliases
-
-    mkdir ~/.config/feroxbuster
-    ln -s ~/dotfiles/feroxbuster/ferox-config.toml ~/.config/feroxbuster/ferox-config.toml
 
     # Set up neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -176,7 +152,6 @@ function config_setup() {
 
     # Set up git repo update script
     echo -e "\n# Git update script\n0 8 * * 7\t$USER\t$HOME/dotfiles/git_update.sh" | tee -a /etc/crontab
-
 }
 
 if [[ $EUID -ne 0 ]]; then
@@ -205,7 +180,7 @@ apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev 
 chsh -s `which bash`
 
 # Install VSCode
-wget -O ~/vscode.deb https://az764295.vo.msecnd.net/stable/2b9aebd5354a3629c3aba0a5f5df49f43d6689f8/code_1.54.3-1615806378_amd64.deb
+wget -O ~/vscode.deb https://az764295.vo.msecnd.net/stable/3c4e3df9e89829dce27b7b5c24508306b151f30d/code_1.55.2-1618307277_amd64.deb
 apt install -y ~/vscode.deb
 rm -f ~/vscode.deb
 
