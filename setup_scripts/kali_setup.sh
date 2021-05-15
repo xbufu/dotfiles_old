@@ -1,20 +1,5 @@
 #!/bin/bash
 
-function kali_fixes() {
-    # Pimp My Kali
-    git clone https://github.com/Dewalt-arch/pimpmykali.git /opt/pimpmykali
-    /opt/pimpmykali/pimpmykali.sh
-    usr=`cat /etc/passwd | grep -v 'nologin' | grep 'home' | cut -d ':' -f 1`
-    cp -Rvf /home/$usr/* /home/$usr/.* /root
-
-    # Disable login message
-    touch ~/.hushlogin
-
-    # Fix impacket
-    python3 -m pip install pysmb
-    python2 -m pip install pysmb
-}
-
 function git_setup() {
     apt install -y git
     git config --global pull.rebase true
@@ -33,18 +18,18 @@ function pipx_setup() {
 }
 
 function java_setup() {
-    apt install -y openjdk-15-jdk openjdk-15-jre openjdk-15-dbg openjdk-15-doc
+    apt install -y openjdk-11-jdk openjdk-11-jre openjdk-11-dbg openjdk-11-doc
     echo -e "\n# Java\nexport JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
     echo -e "export PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.bashrc
 }
 
 function enum_tools() {    
     # Set up feroxbuster
-    apt install feroxbuster
+    apt install -y feroxbuster
 
     # Set up AutoRecon
     apt install -y seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
-    pipx install git+https://github.com/xbufu/AutoRecon.git
+    pipx install git+https://github.com/Tib3rius/AutoRecon.git
     
     # Set up enum4linux-ng
     apt install -y smbclient python3-ldap3 python3-yaml python3-impacket
@@ -54,14 +39,8 @@ function enum_tools() {
     ln -s /opt/enum4linux-ng/enum4linux-ng.py /usr/bin/enum4linux-ng
     cd ~
 
-    # GitTools
-    git clone https://github.com/internetwache/GitTools /opt/GitTools
-    
     # ffuf
     go get -u https://github.com/ffuf/ffuf
-
-    # CrackMapExec
-    pipx install crackmapexec
 }
 
 function pwn_tools() {
@@ -105,9 +84,6 @@ function privesc_tools() {
     git clone https://github.com/jondonas/linux-exploit-suggester-2 /opt/linux-exploit-suggester-2
     git clone https://github.com/Anon-Exploiter/SUID3NUM /opt/SUID3NUM
     git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite /opt/privilege-escalation-awesome-scripts-suite
-    git clone https://github.com/djjoa/genshell /opt/genshell
-    chmod +x /opt/genshell/genshell
-    ln -s /opt/genshell/genshell /usr/local/bin/genshell
     pipx install git+https://github.com/ihebski/DefaultCreds-cheat-sheet.git
     mkdir /opt/pspy
     cd /opt/pspy
@@ -133,7 +109,11 @@ function privesc_tools() {
 }
 
 function config_setup() {
-    git clone git@github.com:xbufu/dotfiles.git ~/dotfiles
+    if [ ! -d ~/dotfiles ];
+    then
+        git clone git@github.com:xbufu/dotfiles.git ~/dotfiles
+    fi
+
     ln -s ~/dotfiles/bash/.bash_aliases ~/.bash_aliases
 
     # Set up neovim
@@ -159,13 +139,6 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-if [ ! -d /opt/pimpmykali ]
-then
-    kali_fixes
-    echo -e "\nPlease restart or at least relog and run the script again\n"
-    exit
-fi
-
 # Path fix for python and go
 PATH=$PATH:$HOME/.local/bin:/usr/local/go/bin:$HOME/go/bin
 
@@ -177,12 +150,9 @@ apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev 
 
 
 # Set default shell to bash
-chsh -s `which bash`
+# chsh -s `which bash`
 
-# Install VSCode
-wget -O ~/vscode.deb https://az764295.vo.msecnd.net/stable/3c4e3df9e89829dce27b7b5c24508306b151f30d/code_1.55.2-1618307277_amd64.deb
-apt install -y ~/vscode.deb
-rm -f ~/vscode.deb
+echo -e "\n# Python\nexport PATH=\$PATH:\$HOME/.local/bin" >> ~/.bashrc 
 
 # Functions
 git_setup
