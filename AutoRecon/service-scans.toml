@@ -129,10 +129,6 @@ ignore-service-names = [
     name = 'whatweb'
     command = 'whatweb --color=never --no-errors -a 3 -v {scheme}://{address}:{port} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_whatweb.txt"'
 
-    [[http.scan]]
-    name = 'ffuf'
-    command = 'ffuf -u {scheme}://{address}:{port}/FUZZ -t 10 -w /usr/share/seclists/Discovery/Web-Content/common.txt -e ".txt,.html,.php,.asp,.aspx,.jsp" -v | tee {scandir}/{protocol}_{port}_{scheme}_ffuf.txt'
-
     [[http.manual]]
     description = '(nikto) old but generally reliable web server enumeration tool'
     commands = [
@@ -222,7 +218,7 @@ service-names = [
 
     [[ldap.scan]]
     name = 'enum4linux-ng'
-    command = 'enum4linux-ng -a -d {address} 2>&1 | tee "{scandir}/enum4linux-ng.txt"'
+    command = 'enum4linux-ng -A -d {address} 2>&1 | tee "{scandir}/enum4linux-ng.txt"'
     run_once = true
     ports.tcp = [139, 389, 445]
     ports.udp = [137]
@@ -444,7 +440,7 @@ service-names = [
 
     [[smb.scan]]
     name = 'enum4linux-ng'
-    command = 'enum4linux-ng -a -d {address} 2>&1 | tee "{scandir}/enum4linux-ng.txt"'
+    command = 'enum4linux-ng -A -d {address} 2>&1 | tee "{scandir}/enum4linux-ng.txt"'
     run_once = true
     ports.tcp = [139, 389, 445]
     ports.udp = [137]

@@ -15,6 +15,7 @@ function pipx_setup() {
     apt install -y python3-venv
     python3 -m pip install --user pipx
     python3 -m pipx ensurepath
+    echo -e "\n# Python\nexport PATH=\$PATH:\$HOME.local/bin"
 }
 
 function java_setup() {
@@ -30,6 +31,7 @@ function enum_tools() {
     # Set up AutoRecon
     apt install -y seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
     pipx install git+https://github.com/Tib3rius/AutoRecon.git
+    autorecon -h >/dev/null
     
     # Set up enum4linux-ng
     apt install -y smbclient python3-ldap3 python3-yaml python3-impacket
@@ -104,7 +106,6 @@ function privesc_tools() {
     mkdir -p /opt/lxd-alpine-builder/rootfs/usr/share/alpine-mirrors
     wget http://dl-cdn.alpinelinux.org/alpine/MIRRORS.txt -O /opt/lxd-alpine-builder/rootfs/usr/share/alpine-mirrors/MIRRORS.txt
     ./build-alpine
-    ln -s /opt/lxd-alpine-builder/alpine-v3.13-x86_64-20210228_2142.tar.gz ~/privesc/linux/alpine.tar.gz
     cd ~
 }
 
@@ -132,6 +133,19 @@ function config_setup() {
 
     # Set up git repo update script
     echo -e "\n# Git update script\n0 8 * * 7\t$USER\t$HOME/dotfiles/git_update.sh" | tee -a /etc/crontab
+
+    # Feroxbuster
+    mkdir -p ~/.config/feroxbuster
+    ln -s ~/dotfiles/feroxbuster/ferox-config.toml ~/.config/feroxbuster/ferox-config.toml
+
+    # AutoRecon
+    if [ ! -d ~/.config/AutoRecon ]
+    then
+	mkdir ~/.config/AutoRecon
+    fi
+    rm ~/.config/AutoRecon/port-scan-profiles.toml ~/.config/AutoRecon/service-scans.toml
+    ln -s ~/dotfiles/AutoRecon/port-scan-profiles.toml ~/.config/AutoRecon/port-scan-profiles.toml
+    ln -s ~/dotfiles/AutoRecon/service-scans.toml ~/.config/AutoRecon/service-scans.toml
 }
 
 if [[ $EUID -ne 0 ]]; then
@@ -150,7 +164,7 @@ apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev 
 
 
 # Set default shell to bash
-# chsh -s `which bash`
+chsh -s `which bash`
 
 echo -e "\n# Python\nexport PATH=\$PATH:\$HOME/.local/bin" >> ~/.bashrc 
 

@@ -1,4 +1,4 @@
 threads = 100
-extensions = ["html", "txt", "php", "asp", "aspx"]
 depth = 2
 save_state = false
+wordlist = "/usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt"
