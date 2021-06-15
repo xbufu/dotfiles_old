@@ -83,10 +83,17 @@ function privesc_tools() {
     # Linux
     git clone https://github.com/andrew-d/static-binaries.git /opt/static-binaries
     git clone https://github.com/rebootuser/LinEnum.git /opt/LinEnum
-    git clone https://github.com/jondonas/linux-exploit-suggester-2 /opt/linux-exploit-suggester-2
+    git clone https://github.com/mzet-/linux-exploit-suggester /opt/linux-exploit-suggester
     git clone https://github.com/Anon-Exploiter/SUID3NUM /opt/SUID3NUM
     git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite /opt/privilege-escalation-awesome-scripts-suite
+    git clone https://github.com/saghul/lxd-alpine-builder /opt/lxd-alpine-builder
+    git clone https://github.com/WhiteWinterWolf/wwwolf-php-webshell /opt/wwwolf-php-webshell
+    git clone https://github.com/ivan-sincek/php-reverse-shell /opt/php-reverse-shell
+    git clone https://github.com/AlmCo/Shellshocker /opt/shellshocker
     pipx install git+https://github.com/ihebski/DefaultCreds-cheat-sheet.git
+    git clone https://github.com/cwinfosec/revshellgen /opt/revshellgen
+    chmod +x /opt/revshellgen/revshellgen.py
+    ln -s /opt/revshellgen/revshellgen.py /usr/bin/rsg
     mkdir /opt/pspy
     cd /opt/pspy
     wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy32
@@ -99,14 +106,14 @@ function privesc_tools() {
     git clone https://github.com/samratashok/nishang /opt/nishang
     git clone https://github.com/PowerShellMafia/PowerSploit /opt/PowerSploit
     git clone https://github.com/bitsadmin/wesng /opt/wesng
+    git clone https://github.com/3ndG4me/AutoBlue-MS17-010 /opt/AutoBlue-MS17-010
+    git clone https://github.com/helviojunior/MS17-010 /opt/MS17-010
+    git clone https://github.com/worawit/MS17-010 /opt/MS17-010-OG
+    git clone https://github.com/andyacer/ms08_067 /opt/ms08_067
+    git clone https://github.com/ivan-sincek/powershell-reverse-tcp /opt/powershell-reverse-tcp
+    git clone https://github.com/turbo/zero2hero /opt/zero2hero-uac-bypass
     python3 -m pip install /opt/wesng
     
-    git clone https://github.com/saghul/lxd-alpine-builder /opt/lxd-alpine-builder
-    cd /opt/lxd-alpine-builder
-    mkdir -p /opt/lxd-alpine-builder/rootfs/usr/share/alpine-mirrors
-    wget http://dl-cdn.alpinelinux.org/alpine/MIRRORS.txt -O /opt/lxd-alpine-builder/rootfs/usr/share/alpine-mirrors/MIRRORS.txt
-    ./build-alpine
-    cd ~
 }
 
 function config_setup() {
@@ -160,7 +167,9 @@ PATH=$PATH:$HOME/.local/bin:/usr/local/go/bin:$HOME/go/bin
 apt update && apt -y upgrade && apt -y autoremove && apt -y autoclean
 
 # Install basic tools
-apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 htop libmpc-dev python3-dev python2-dev gimp
+apt install -y curl wget tmux neovim manpages-dev manpages-posix-dev libssl-dev libffi-dev build-essential openssl gnupg mlocate xclip dkms linux-headers-amd64 htop libmpc-dev python3-dev python2-dev gimp gcc-multilib
+
+apt install -y powershell-empire starkiller bloodhound
 
 
 # Set default shell to bash
