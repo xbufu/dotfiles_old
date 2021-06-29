@@ -1,4 +1,4 @@
 threads = 100
-depth = 2
+no_recursion = true
 save_state = false
-wordlist = "/usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt"
+wordlist = "/usr/share/seclists/Discovery/Web-Content/common.txt"

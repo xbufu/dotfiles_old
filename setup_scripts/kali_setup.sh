@@ -28,6 +28,8 @@ function enum_tools() {
     # Set up feroxbuster
     apt install -y feroxbuster
 
+    pipx install threader3000
+
     # Set up AutoRecon
     apt install -y seclists curl enum4linux gobuster nbtscan nikto nmap onesixtyone oscanner smbclient smbmap smtp-user-enum snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
     pipx install git+https://github.com/Tib3rius/AutoRecon.git

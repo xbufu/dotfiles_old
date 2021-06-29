@@ -130,6 +130,18 @@ ignore-service-names = [
     command = 'whatweb --color=never --no-errors -a 3 -v {scheme}://{address}:{port} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_whatweb.txt"'
 
     [[http.manual]]
+    name = 'feroxbuster-recursive-linux'
+    command = 'feroxbuster -u {scheme}://{address}:{port}/ -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -t 100 -x txt,php,conf,bak -d 3 -o "{scandir}/{protocol}_{port}_{scheme}_feroxbuster_recursive_linux.txt"'
+
+    [[http.manual]]
+    name = 'feroxbuster-recursive-windows'
+    command = 'feroxbuster -u {scheme}://{address}:{port}/ -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -t 100 -x txt,asp,aspx,conf,bak -d 3 -o "{scandir}/{protocol}_{port}_{scheme}_feroxbuster_recursive_windows.txt"'
+
+    [[http.manual]]
+    name = 'feroxbuster-recursive-java'
+    command = 'feroxbuster -u {scheme}://{address}:{port}/ -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt -t 100 -x txt,java,conf,bak -d 3 -o "{scandir}/{protocol}_{port}_{scheme}_feroxbuster_recursive_java.txt"'
+
+    [[http.manual]]
     description = '(nikto) old but generally reliable web server enumeration tool'
     commands = [
         'nikto -ask=no -h {scheme}://{address}:{port} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_nikto.txt"'
