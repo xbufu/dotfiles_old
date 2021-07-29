@@ -14,7 +14,7 @@ function git_setup() {
 function pipx_setup() {
     apt install -y python3-venv
     python3 -m pip install --user pipx
-    python3 -m pipx ensurepath
+    python3 -m pipx ensurepath --force
     echo -e "\n# Python\nexport PATH=\$PATH:\$HOME.local/bin"
 }
 
