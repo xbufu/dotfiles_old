@@ -1,0 +1,13 @@
+user_pref("browser.aboutConfig.showWarning", false);
+user_pref("browser.fixup.domainsuffixwhitelist.csl", true);
+user_pref("browser.fixup.domainsuffixwhitelist.htb", true);
+user_pref("browser.fixup.domainsuffixwhitelist.pg", true);
+user_pref("browser.fixup.domainsuffixwhitelist.thm", true);
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", false);
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false);
+user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
+user_pref("browser.newtabpage.activity-stream.showSearch", false);
+user_pref("browser.tabs.warnOnClose", false);
+user_pref("layout.spellcheckDefault", 0);
+user_pref("signon.management.page.breach-alerts.enabled", false);
+user_pref("signon.rememberSignons", false);
