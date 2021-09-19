@@ -1,4 +1,0 @@
-threads = 100
-no_recursion = true
-save_state = false
-wordlist = "/usr/share/seclists/Discovery/Web-Content/common.txt"
