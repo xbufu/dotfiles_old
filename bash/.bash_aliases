@@ -5,7 +5,6 @@ alias htb-starting-point='openvpn --cd $HOME/.openvpn --config htb_starting_poin
 alias thm-vpn='openvpn --cd $HOME/.openvpn --config thm.ovpn'
 alias pg-vpn='openvpn --cd $HOME/.openvpn --config pg.ovpn'
 alias csl-vpn='openvpn --cd $HOME/.openvpn --config csl.ovpn'
-alias pwk-vpn='openvpn --cd $HOME/Shares/InfoSec/OSCP/vpn --config OS-95841-PWK.ovpn'
 alias code='code-oss'
 alias vi='nvim'
 alias pyenv2='virtualenv -p /usr/bin/python2 venv && source venv/bin/activate'
